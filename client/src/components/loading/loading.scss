@@ -1,0 +1,60 @@
+$duration: 0.3s;
+
+.loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  // transition: opacity .3s ease;
+  transition: opacity $duration ease-in-out;
+
+  &-enter {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  &-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity $duration, transform $duration;
+  }
+  &-exit {
+    opacity: 1;
+  }
+  &-exit-active {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity $duration, transform $duration;
+  }
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    display: grid;
+    place-items: center;
+
+    img {
+      margin-top: -50px;
+      animation: loading 1.5s ease-out infinite;
+    }
+  }
+}
+
+@keyframes loading {
+  0% {
+    transform: scale(1)
+  }
+  50% {
+    transform: scale(1.1)
+  }
+  100% {
+    transform: scale(1)
+  }
+}

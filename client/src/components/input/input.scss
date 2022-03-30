@@ -1,0 +1,39 @@
+.input {
+  &__container {
+    position: relative;
+    display: block;
+    display: flex;
+    flex-direction: column;
+
+    label {
+      p {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 300;
+        font-size: 12px;
+        line-height: 14px;
+        margin: 4px 0;
+      }
+    }
+  }
+
+  &__field {
+    width: 100%;
+    background: #F8FBFC;
+    border: 1px solid #EAECEE;
+    border-radius: 5px;
+    height: 40px;
+    padding: 1em;
+    font-size: 16px;
+    line-height: 19px;
+
+  }
+
+  &__error {
+    position: absolute;
+    left: 0;
+    bottom: -16px;
+    font-size: 12px;
+    color: #D32E2E;
+  }
+}

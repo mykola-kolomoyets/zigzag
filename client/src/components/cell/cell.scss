@@ -1,0 +1,23 @@
+.cell {
+  &__container {
+    block-size: auto;
+    display: flex;
+    resize: horizontal;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    aspect-ratio: 1 / 1;
+
+    background-color: #F8FBFC;
+    border: 1px solid #000000;
+  }
+
+  &__available {
+    background-color: #D9F1FF;
+  }
+
+  &__filled {
+    background-color: #98C1FF;
+  }
+}

@@ -1,0 +1,51 @@
+.login {
+  &__container {
+    width: 375px;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    margin-top: -25px;
+  }
+
+  &__content {
+    position: relative;
+    width: 100%;
+  }
+
+  &__title {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 36px;
+      line-height: 36px;
+      text-align: center;
+      margin-top: 32px;
+      margin-bottom: 4px;
+  }
+
+  &__register {
+    text-align: center;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 19px;
+
+    &--link {
+      color: #569AFF;
+      text-decoration: none;
+    }
+  }
+
+  &__form {
+    margin: 0 45px;
+    margin-top: 32px;
+  }
+
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 60px;
+  }
+}
