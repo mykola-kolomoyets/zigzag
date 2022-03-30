@@ -2,8 +2,10 @@
   "name": "project-zigzag",
   "version": "1.0.0",
   "description": "Project in action - ...",
+  "main": "server.js",
   "scripts": {
-    "start": "tsc server.ts",
+    "start": "tsc server.ts && node server.js",
+    "build": "tsc",
     "server": "nodemon server.ts"
   },
   "repository": {
