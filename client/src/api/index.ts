@@ -1,7 +1,5 @@
 import axios from "axios";
 
-const { REACT_APP_API_URL } = process.env;
-
 export const defaultHeader = {
     'Content-type': 'application/json'
 };
@@ -12,7 +10,7 @@ export const AuthHeader = () => ({
 });
 
 export default axios.create({
-  baseURL: REACT_APP_API_URL,
+  baseURL: `http://localhost:${process.env.PORT || 4000}/api/v1`,
   headers: {
     'Content-type': 'application/json'
   }

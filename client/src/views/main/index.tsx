@@ -51,24 +51,39 @@ const Main: VFC = () => {
       height
     ] = [widthRef, heightRef].map(ref => ref.current?.value || 0);
 
-    if ((!width || !height) ||
-      (Number(width) < 4 || Number(height) < 4) ||
-      (Number(width) > 10 || Number(height) > 10)
-    ) {
-      return setSummaryData({
-        isShow: true,
-        isSuccess: false,
-        title: 'Field is invalid!',
-        subtitle: 'Enter field width and height minimum 4 and maximum 10'
-      });
-    }
+    // if ((!width || !height) ||
+    //   (Number(width) < 4 || Number(height) < 4) ||
+    //   (Number(width) > 10 || Number(height) > 10)
+    // ) {
+    //   return setSummaryData({
+    //     isShow: true,
+    //     isSuccess: false,
+    //     title: 'Field is invalid!',
+    //     subtitle: 'Enter field width and height minimum 4 and maximum 10'
+    //   });
+    // }
 
     const fieldSize: Size = {
       width: Number(width),
       height: Number(height)
     }
 
-    setGameData({ fieldSize });
+    const createDisabledCell = (rows: number , columns: number): number[] => {
+      return [
+        Math.floor(Math.random() * (rows - 1)),
+        Math.floor(Math.random() * (columns - 1))
+      ];
+    }
+
+    const disabledCells: number[][] = [
+      createDisabledCell(fieldSize.width, fieldSize.height),
+      createDisabledCell(fieldSize.width, fieldSize.height)
+    ];
+
+    console.log(disabledCells);
+
+
+    setGameData({ fieldSize, disabledCells });
 
     setIsStarted(true);
   }

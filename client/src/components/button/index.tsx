@@ -1,3 +1,4 @@
+import classnames from 'classnames';
 import React, { ButtonHTMLAttributes, DetailedHTMLProps, forwardRef } from 'react';
 
 import './button.scss';
@@ -10,7 +11,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
 }, ref) => {
   return (
     <button
-      className='button'
+      className={classnames('button', {
+        'button__disabled': props.disabled
+      })}
       onClick={onClick}
       ref={ref}
       {...props}

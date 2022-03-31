@@ -12,4 +12,9 @@
   &:active {
     background: #428bf9;
   }
+
+  &__disabled {
+    cursor: not-allowed;
+    background-color: rgb(162, 204, 255);
+  }
 }

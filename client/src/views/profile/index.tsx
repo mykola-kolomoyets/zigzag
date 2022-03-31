@@ -61,7 +61,7 @@ const Profile: VFC = () => {
         </article>
 
         <article className='profile__stats-item'>
-          <h4 className='profile__stats-item_title'>Best game: </h4>
+          <h4 className='profile__stats-item_title'>Last game: </h4>
 
           {/* <article>
             <h5 className='profile__stats-item_subtitle'>Time: </h5>

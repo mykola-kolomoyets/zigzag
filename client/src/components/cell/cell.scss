@@ -1,5 +1,6 @@
 .cell {
   &__container {
+    cursor: pointer;
     block-size: auto;
     display: flex;
     resize: horizontal;
@@ -19,5 +20,13 @@
 
   &__filled {
     background-color: #98C1FF;
+  }
+
+  &__disabled {
+    background-color: #999;
+  }
+
+  &__last-try {
+    background-color: #5e9cf9;
   }
 }

@@ -49,11 +49,15 @@ export type Try = {
 
 export type GameStore = {
   currentNumber: number;
-  lastTry: Try
+  lastTry: Try,
+  previousTry: Try,
   time: number;
   avaliableCells: number;
+  isCancelAvailable: boolean;
   fieldSize: Size;
   field: string[][];
+  lastTryField: string[][],
+  disabledCells: number[][],
   onCellClick: (row: number, column: number, field: string[][], lastTry: Try) => void;
 };
 
