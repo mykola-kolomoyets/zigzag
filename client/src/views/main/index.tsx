@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useRef, useState, VFC } from "react";
+import { ChangeEvent, useEffect, useState, VFC } from "react";
 import { useNavigate } from "react-router";
 
 import AuthService from "../../api/services/auth";
@@ -19,6 +19,26 @@ import Game from "../game";
 
 import './main.scss';
 import SummaryContext from "../../store/context/summary";
+import { useTranslation } from "react-i18next";
+
+const startSets: Size[] = [
+  { width: 6, height: 6 },
+  { width: 7, height: 7 },
+  { width: 8, height: 8 },
+  { width: 9, height: 9 },
+  { width: 10, height: 10 },
+  { width: 6, height: 7 },
+  { width: 7, height: 8 },
+  { width: 8, height: 9 },
+  { width: 9, height: 10 }
+];
+
+const createSetsButtons = (set: Size[]) => {
+  return set.map((item, index) => ({
+    label: `${item.width}x${item.height}`,
+    value: index
+  }));
+}
 
 const Main: VFC = () => {
   const { data: {
@@ -30,14 +50,18 @@ const Main: VFC = () => {
   const { setData: setGameData } = GameContext.useContext();
   const { setData: setSummaryData } = SummaryContext.useContext();
 
-  const widthRef = useRef<HTMLInputElement>(null);
-  const heightRef = useRef<HTMLInputElement>(null);
-
   const [isStarted, setIsStarted] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
+  const [fieldSize, setFieldSize] = useState(0);
+
+  const { t } = useTranslation();
 
   const onDifficultyChange = (event: ChangeEvent<HTMLInputElement>) => {
     setAppData({ difficulty: event.target.value });
+  }
+
+  const onFieldSizeChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setFieldSize(Number(event.target.value));
   }
 
   const onFinishGame = () => {
@@ -46,10 +70,6 @@ const Main: VFC = () => {
   }
 
   const onStartGame = () => {
-    const [
-      width,
-      height
-    ] = [widthRef, heightRef].map(ref => ref.current?.value || 0);
 
     // if ((!width || !height) ||
     //   (Number(width) < 4 || Number(height) < 4) ||
@@ -63,27 +83,24 @@ const Main: VFC = () => {
     //   });
     // }
 
-    const fieldSize: Size = {
-      width: Number(width),
-      height: Number(height)
-    }
-
-    const createDisabledCell = (rows: number , columns: number): number[] => {
+    const createDisabledCell = (rows: number, columns: number): number[] => {
       return [
         Math.floor(Math.random() * (rows - 1)),
         Math.floor(Math.random() * (columns - 1))
       ];
     }
 
-    const disabledCells: number[][] = [
-      createDisabledCell(fieldSize.width, fieldSize.height),
-      createDisabledCell(fieldSize.width, fieldSize.height)
-    ];
+    const disabledCells: number[][] = difficulty === Difficulty.hard ?
+      [
+        createDisabledCell(startSets[fieldSize].width, startSets[fieldSize].height),
+        createDisabledCell(startSets[fieldSize].width, startSets[fieldSize].height)
+      ] :
+      [
+        [0, 0],
+        [1, 0]
+      ];
 
-    console.log(disabledCells);
-
-
-    setGameData({ fieldSize, disabledCells });
+    setGameData({ fieldSize: startSets[fieldSize], disabledCells });
 
     setIsStarted(true);
   }
@@ -117,35 +134,42 @@ const Main: VFC = () => {
             <Timer isTicking={!isFinished} />
             <Game onFinish={onFinishGame} />
             <Button onClick={onFinishGame}>
-              Finish Game
+              {t('game.finishGame')}
             </Button>
           </section>
         ) : (
           <section className='main__menu'>
             <h1 className='main__menu--title'>
-              <span>Welcome back,</span>
+              <span>{t('pages.main.title')}</span>
               <br />
               {name}
             </h1>
 
-            <h4 className='main__menu--subtitle'>Start the new game</h4>
+            <h4 className='main__menu--subtitle'>{t('pages.main.start')}</h4>
 
             <section className='main__menu--field-inputs'>
-              <Input placeholder='Field width' type="number" name="width" ref={widthRef} errorMessage='' />
-
-              <Input placeholder='Field height' type="number" name="width" ref={heightRef} errorMessage='' />
+              <Radio
+                label={t('pages.main.fieldSize.title')}
+                value={fieldSize}
+                items={createSetsButtons(startSets)}
+                inputProps={{ onChange: onFieldSizeChange }}
+              />
 
               <Radio
-                label={'Difficulty'}
+                label={t('pages.main.difficulty.title')}
                 value={difficulty}
                 items={[
                   {
                     value: Difficulty.easy,
-                    label: 'Easy',
+                    label: t('pages.main.difficulty.easy'),
                   },
                   {
                     value: Difficulty.middle,
-                    label: 'Middle',
+                    label: t('pages.main.difficulty.middle'),
+                  },
+                  {
+                    value: Difficulty.hard,
+                    label: t('pages.main.difficulty.hard'),
                   },
                 ]}
                 inputProps={{ onChange: onDifficultyChange }}
@@ -153,7 +177,7 @@ const Main: VFC = () => {
             </section>
 
             <Button onClick={onStartGame}>
-              Start Game
+              {t('pages.main.submit')}
             </Button>
           </section>
         )}

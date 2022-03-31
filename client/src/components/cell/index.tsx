@@ -1,5 +1,6 @@
 import { FC, useCallback, useEffect, useState } from "react";
 import classnames from 'classnames';
+import { CSSTransition, Transition } from 'react-transition-group';
 
 import GameContext from "../../store/context/game";
 
@@ -27,14 +28,14 @@ const Cell: FC<CellProps> = ({ content, row, column }) => {
   return (
     <div
       className={classnames('cell__container', {
-        'cell__disabled': isDisabledCell,
+        'cell__disabled': isDisabledCell && content === 'X',
         'cell__available': !isDisabledCell && difficulty === Difficulty.easy && isAllowedToGo,
         'cell__filled': !isDisabledCell && Number(content) !== 0,
         'cell__last-try': row === lastTry.row && column === lastTry.column
       })}
       onClick={() => isAllowedToGo ? onCellClick(row, column, field, lastTry) : {}}
     >
-      {content}
+      {isDisabledCell ? 'X' : content}
     </div>
   )
 };

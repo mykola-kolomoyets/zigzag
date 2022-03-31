@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
+import { sendMail } from './../constants/send-email';
+
 import User from './../models/user';
 import Stats from './../models/stats';
 
@@ -84,5 +86,15 @@ export default class AuthController {
     res
       .status(StatusCodes.OK)
       .json({ user, stats: userStats });
+  }
+
+  static notifyByEmail = async (req: Request, res: Response) => {
+    // const { text, field } = req.body;
+
+    // await sendMail(text, field);
+
+    res
+      .json(StatusCodes.CREATED)
+      .json({ message: 'email was sent' });
   }
 };

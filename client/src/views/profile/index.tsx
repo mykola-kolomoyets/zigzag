@@ -11,6 +11,7 @@ import StatsContext from "../../store/context/stats";
 import Navigation from "../../components/navbar";
 
 import './profile.scss';
+import { useTranslation } from "react-i18next";
 
 const Profile: VFC = () => {
   const { data: { user: { _id: id }, token } } = AppContext.useContext();
@@ -24,6 +25,7 @@ const Profile: VFC = () => {
   const [stats, setStats] = useState<StatsStore>(data);
 
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const userId = id || localStorage.getItem('userId');
@@ -51,17 +53,17 @@ const Profile: VFC = () => {
       <Navigation />
 
       <section className='profile__content'>
-        <h1 className='profile__title'>Profile</h1>
+        <h1 className='profile__title'>{t('pages.profile.title')}</h1>
 
-        <h3 className='profile__subtitle'>Your statistics:</h3>
+        <h3 className='profile__subtitle'>{t('pages.profile.subtitle')}</h3>
 
         <article className='profile__stats-item'>
-          <h4 className='profile__stats-item_title'>Total games played: </h4>
+          <h4 className='profile__stats-item_title'>{t('pages.profile.totalGames')} </h4>
           <p>{stats.totalGames}</p>
         </article>
 
         <article className='profile__stats-item'>
-          <h4 className='profile__stats-item_title'>Last game: </h4>
+          <h4 className='profile__stats-item_title'>{t('pages.profile.lastGame.title')}</h4>
 
           {/* <article>
             <h5 className='profile__stats-item_subtitle'>Time: </h5>
@@ -69,12 +71,12 @@ const Profile: VFC = () => {
           </article> */}
 
           <article className='profile__stats-subitem'>
-            <h5 className='profile__stats-item_subtitle'>Moves: </h5>
+            <h5 className='profile__stats-item_subtitle'>{t('pages.profile.lastGame.moves')}</h5>
             <p>{stats.moves}</p>
           </article>
 
           <article className='profile__stats-subitem'>
-            <h5 className='profile__stats-item_subtitle'>Field: </h5>
+            <h5 className='profile__stats-item_subtitle'>{t('pages.profile.lastGame.field')} </h5>
             <p>{stats.bestGame.field.width} x {stats.bestGame.field.height}</p>
           </article>
         </article>

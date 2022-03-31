@@ -1,6 +1,12 @@
 export enum Difficulty {
   easy = 'easy',
-  middle = 'middle'
+  middle = 'middle',
+  hard = 'hard'
+}
+
+export enum Locales {
+  en = 'en',
+  uk = 'uk'
 }
 
 export enum AlertType {

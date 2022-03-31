@@ -12,6 +12,7 @@ import Logo from '../../components/logo';
 
 import './login.scss';
 import SummaryContext from '../../store/context/summary';
+import { useTranslation } from 'react-i18next';
 
 const Login: VFC = () => {
   const [login, setLogin] = useState('');
@@ -24,6 +25,7 @@ const Login: VFC = () => {
   const { setData: setSummaryData } = SummaryContext.useContext();
 
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const onLoginChange = (event: ChangeEvent<HTMLInputElement>) => {
     setLogin(event.target.value);
@@ -37,8 +39,8 @@ const Login: VFC = () => {
   const onSubmit = (event: FormEvent) => {
     if (event) event.preventDefault();
 
-    if (!login) return setLoginError('Enter email or nickname');
-    if (!password) return setPasswordError('Enter password');
+    if (!login) return setLoginError(t('pages.login.inputs.login.placeholder'));
+    if (!password) return setPasswordError(t('pages.login.inputs.password.placeholder'));
 
     setAppData({ isLoading: true });
 
@@ -46,29 +48,29 @@ const Login: VFC = () => {
       email: login,
       password: password
     })
-    .then(res => {
-      const { token, user } = res.data;
+      .then(res => {
+        const { token, user } = res.data;
 
-      setAppData({ user, token });
+        setAppData({ user, token });
 
-      localStorage.setItem('userId', user._id!);
-      localStorage.setItem('AuthToken', token);
-    })
-    .then(() => navigate('/main'))
-    .catch(err => {
-      console.log(err.response.message);
+        localStorage.setItem('userId', user._id!);
+        localStorage.setItem('AuthToken', token);
+      })
+      .then(() => navigate('/main'))
+      .catch(err => {
+        console.log(err.response.message);
 
-      setPassword('');
-      setLogin('');
+        setPassword('');
+        setLogin('');
 
-      setSummaryData({
-        isShow: true,
-        isSuccess: false,
-        title: "Something went wrong!",
-        subtitle: err.response.data.message
-      });
-    })
-    .finally(() => setAppData({ isLoading: false }));
+        setSummaryData({
+          isShow: true,
+          isSuccess: false,
+          title: t('popup.fail.title') as string,
+          subtitle: err.response.data.message
+        });
+      })
+      .finally(() => setAppData({ isLoading: false }));
   }
 
   useEffect(() => {
@@ -81,25 +83,25 @@ const Login: VFC = () => {
       <section className="login__content">
         <Logo />
 
-        <h2 className='login__title'>Hello Again!</h2>
+        <h2 className='login__title'>{t('pages.login.title')}</h2>
 
         <section className='login__register'>
-          <span>Not registered?&nbsp;</span>
-          <Link className='login__register--link' to='/register'>Register</Link>
+          <span>{t('pages.login.subtitle.text')}&nbsp;</span>
+          <Link className='login__register--link' to='/register'>{t('pages.login.subtitle.link')}</Link>
         </section>
 
         <form onSubmit={onSubmit} className='login__form'>
           <section className='login__inputs'>
             <Input
               name='email'
-              placeholder='Enter login or email'
+              placeholder={t('pages.login.inputs.login.placeholder')}
               value={login}
               onChange={onLoginChange}
               errorMessage={loginError}
             />
             <Input
               name='password'
-              placeholder='Enter password'
+              placeholder={t('pages.login.inputs.password.placeholder')}
               value={password}
               onChange={onPasswordChange}
               errorMessage={passwordError}
@@ -108,7 +110,7 @@ const Login: VFC = () => {
 
           <section>
             <Button disabled={isLoading}>
-              Login
+              {t('pages.login.inputs.submit')}
             </Button>
           </section>
 

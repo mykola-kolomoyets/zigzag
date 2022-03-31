@@ -1,4 +1,7 @@
 import { useCallback, useEffect, FC, useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import AuthService from "../../api/services/auth";
+import EmailService from "../../api/services/email";
 import StatsService from "../../api/services/stats";
 import Button from "../../components/button";
 
@@ -29,7 +32,7 @@ export const checkRow = (content: string, row: number, column: number, field: st
 
 const arraysEqual = (a1: number[],a2: number[]) => {
   /* WARNING: arrays must not contain {objects} or behavior may be undefined */
-  return JSON.stringify(a1)==JSON.stringify(a2);
+  return JSON.stringify(a1) == JSON.stringify(a2);
 }
 
 const getTotalAvaliableMoves = (field: string[][], row: number, column: number, disabledCells: number[][]): number => {
@@ -56,7 +59,7 @@ const getTotalAvaliableMoves = (field: string[][], row: number, column: number, 
       (newColumn >= 0 && newColumn < field[0].length) &&
       disabledCells.every(cell => !arraysEqual([newRow, newColumn], cell))
     ) {
-      if (field[newRow][newColumn] === '0') totalMoves++;
+      if (field[newRow][newColumn] === '') totalMoves++;
     }
   });
 
@@ -64,13 +67,9 @@ const getTotalAvaliableMoves = (field: string[][], row: number, column: number, 
 }
 
 const checkWin = (field: string[][]): boolean => {
-  // const isWin = field
-  //   .reduce((acc, curr) => [...acc, curr.some(el => el === '0')], [] as boolean[])
-  //   .every(el => !el);
+  const LeftZeroes = field.reduce((acc, curr) => acc + curr.filter(el => el === '').length , 0);
 
-  const LeftZeroes = field.reduce((acc, curr) => acc + curr.filter(el => el === '0').length , 0);
-
-  return LeftZeroes === 2;
+  return LeftZeroes === 0;
 }
 
 type GameProps = {
@@ -91,32 +90,18 @@ const Game: FC<GameProps> = ({ onFinish }) => {
   const { setData: setStatsData } = StatsContext.useContext();
   const { setData: setSummaryData } = SummaryContext.useContext();
 
+  const { t } = useTranslation();
+
   const cancelMove = () => {
     const newField = field.slice();
-    let maxNumber = 0;
-    let maxNumberRow = 0;
-    let maxNumberColumn = 0;
 
-    field.forEach((row, rowIndex) => {
-      row.forEach((cell, columnIndex) => {
-        if (Number(cell) > maxNumber) {
-          maxNumber = Number(cell);
-          maxNumberRow = rowIndex;
-          maxNumberColumn = columnIndex;
-        }
-      });
-    });
-
-    newField[maxNumberRow][maxNumberColumn] = '0';
+    newField[lastTry.row!][lastTry.column!] = '';
 
     setGameData({
       lastTry: previousTry,
       field: newField,
       isCancelAvailable: false
     });
-
-    console.log(field, lastTryField);
-
   }
 
   const onCellClick = async (row: number, column: number, field: string[][], lastTry: Try) => {
@@ -147,12 +132,19 @@ const Game: FC<GameProps> = ({ onFinish }) => {
     const availableMoves = getTotalAvaliableMoves(fieldCopy, row, column, disabledCells);
 
     if (availableMoves === 0) {
+      const isWin = checkWin(field);
       await setSummaryData(({
         isShow: true,
-        isSuccess: true,
-        title: 'Game Over',
-        subtitle: checkWin(field) ? 'YOU WIN!' : 'YOU LOSE!'
+        isSuccess: isWin,
+        title: isWin ?
+          t('popup.success.title') as string :
+          t('popup.fail.title') as string,
+        subtitle: isWin ?
+          t('popup.succes.subtitle') as string :
+          t('popup.fail.subtitle') as string
       }));
+
+      if (isWin) EmailService.sendEmail({ text: 'user field: ', field });
 
       onFinish();
 
@@ -165,8 +157,6 @@ const Game: FC<GameProps> = ({ onFinish }) => {
         },
       });
 
-      // === TODO:
-      // === PUSH results of lastGame on the server
       setAppData({ isLoading: true });
 
       await StatsService.update(id!, {
@@ -189,7 +179,14 @@ const Game: FC<GameProps> = ({ onFinish }) => {
   };
 
   useEffect(() => {
-    const field = Array(fieldSize.width).fill('0').map(() => Array(fieldSize.height).fill('0'));
+    const field = Array(fieldSize.height).fill('').map(() => Array(fieldSize.width).fill(''));
+
+    if (disabledCells) {
+      disabledCells.forEach(([row, column]) => {
+        field[row][column] = 'X';
+      });
+
+    }
 
     setGameData({
       field,
@@ -203,7 +200,7 @@ const Game: FC<GameProps> = ({ onFinish }) => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
     setGameData({ onCellClick });
-  }, [fieldSize]);
+  }, [fieldSize, disabledCells]);
 
   const rows = useMemo(() => field.map((row, index) => (
     <Row key={`row${index}`} content={row} number={index} />)), [field, lastTryField, lastTry]);
@@ -212,7 +209,7 @@ const Game: FC<GameProps> = ({ onFinish }) => {
     <section>
       <div className='game__cancel-move'>
         <Button onClick={cancelMove} disabled={!isCancelAvailable}>
-          Cancel Move
+          {t('game.cancelMove')}
         </Button>
       </div>
       {rows}

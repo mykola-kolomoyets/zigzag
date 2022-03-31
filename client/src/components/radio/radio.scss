@@ -31,8 +31,9 @@
 
   &__inputs-wrapper {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
     margin-top: 5px;
 
     .radio__container {

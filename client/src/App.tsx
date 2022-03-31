@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect } from 'react';
+import React, { Fragment, lazy, Suspense, useEffect } from 'react';
 
 import {
   BrowserRouter,
@@ -29,19 +29,19 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Suspense fallback={<Loading isLoading/>}>
+      <Suspense fallback={<Loading isLoading />}>
         <Routes>
           <Route path='/main' element={
             <Auth>
               <Main />
             </Auth>
-          }/>
+          } />
 
           <Route path='/profile' element={
             <Auth>
               <Profile />
             </Auth>
-          }/>
+          } />
 
           <Route path='/register' element={<Register />} />
           <Route path='/login' element={<Login />} />

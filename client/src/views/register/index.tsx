@@ -11,6 +11,7 @@ import Button from './../../components/button';
 import Logo from '../../components/logo';
 
 import './register.scss';
+import { useTranslation } from 'react-i18next';
 
 const Register: VFC = () => {
   const [name, setName] = useState('');
@@ -24,6 +25,7 @@ const Register: VFC = () => {
   const { data: { isLoading }, setData: setAppData } = AppContext.useContext();
 
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const onNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -43,9 +45,9 @@ const Register: VFC = () => {
   const onSubmit = (event: FormEvent) => {
     if (event) event.preventDefault();
 
-    if (!name) return setNameError('Enter your nickname');
-    if (!email) return setEmailError('Enter your email');
-    if (!password) return setPasswordError('Enter your password');
+    if (!name) return setNameError(t('pages.register.inputs.name.placeholder'));
+    if (!email) return setEmailError(t('pages.register.inputs.email.placeholder'));
+    if (!password) return setPasswordError(t('pages.register.inputs.password.placeholder'));
 
     setAppData({ isLoading: true });
 
@@ -54,38 +56,38 @@ const Register: VFC = () => {
       email: email!,
       password: password!
     })
-    .then(res => {
-      const { token, user } = res.data;
+      .then(res => {
+        const { token, user } = res.data;
 
-      setAppData({
-        user,
-        token
-      });
-    })
-    .then(() => navigate('/login'))
-    .catch(err => {
-      console.log(err);
+        setAppData({
+          user,
+          token
+        });
+      })
+      .then(() => navigate('/login'))
+      .catch(err => {
+        console.log(err);
 
-    })
-    .finally(() => setAppData({ isLoading: false }));
+      })
+      .finally(() => setAppData({ isLoading: false }));
   }
   return (
     <section className="register__container container">
       <section className="register__content">
         <Logo />
 
-        <h2 className='register__title'>Register</h2>
+        <h2 className='register__title'>{t('pages.register.title')}</h2>
 
         <section className='register__login'>
-            Not registered?&nbsp;
-            <Link className='register__login--link' to='/login'>Login</Link>
+          {t('pages.register.subtitle.text')}&nbsp;
+          <Link className='register__login--link' to='/login'>{t('pages.register.subtitle.link')}</Link>
         </section>
 
         <form onSubmit={onSubmit} className='register__form'>
           <section className='register__inputs'>
             <Input
               name='name'
-              placeholder='Enter name'
+              placeholder={t('pages.register.inputs.name.placeholder')}
               value={name}
               onChange={onNameChange}
               errorMessage={nameError}
@@ -93,7 +95,7 @@ const Register: VFC = () => {
 
             <Input
               name='email'
-              placeholder='Enter email'
+              placeholder={t('pages.register.inputs.email.placeholder')}
               value={email}
               onChange={onEmailChange}
               errorMessage={emailError}
@@ -101,7 +103,7 @@ const Register: VFC = () => {
 
             <Input
               name='password'
-              placeholder='Enter password'
+              placeholder={t('pages.register.inputs.password.placeholder')}
               value={password}
               onChange={onPasswordChange}
               errorMessage={passwordError}
@@ -109,7 +111,7 @@ const Register: VFC = () => {
           </section>
 
           <Button disabled={isLoading}>
-            Register
+            {t('pages.register.inputs.submit')}
           </Button>
         </form>
 

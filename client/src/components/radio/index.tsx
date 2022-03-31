@@ -5,8 +5,8 @@ import './radio.scss';
 
 export type RadioProps = {
   name?: string;
-  items: { value: string; label: string }[];
-  value?: string | null;
+  items: { value: string | number; label: string }[];
+  value?: string | number | null;
   label?: string;
   className?: string;
   inputProps?: ComponentProps<'input'>;
@@ -23,7 +23,7 @@ const Radio = ({
   });
 
   const radioContainerClasses = (itemValue: string) => classNames('radio__container text', {
-    radio__container_active: value === itemValue,
+    radio__container_active: value == itemValue,
     radio__container_disabled: inputProps?.disabled
   });
 
@@ -34,14 +34,14 @@ const Radio = ({
         {items.map(({ label: itemLabel, value: itemValue }, index) => (
           <label
             key={index}
-            className={radioContainerClasses(itemValue)}
+            className={radioContainerClasses(itemValue.toString())}
           >
             {itemLabel}
             <input
               {...inputProps}
               className="radio__input"
               type="radio"
-              checked={value === itemValue}
+              checked={value == itemValue}
               value={itemValue}
             />
             <span

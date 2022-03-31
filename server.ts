@@ -11,6 +11,7 @@ import connectDB, { connectionString } from './db/connect';
 // === routers
 import authRouter from './routes/auth';
 import statsRouter from './routes/stats';
+import emailRouter from './routes/email';
 
 // === middlewares
 import notFoundMiddleware from './middleware/not-found';
@@ -35,6 +36,7 @@ app.get('/', (req: Request, res: Response) => {
 // === routers
 app.use(`${Path.main}${Path.auth.main}`, authRouter);
 app.use(`${Path.main}${Path.stats.main}`, statsRouter);
+app.use(`${Path.main}/email`, emailRouter);
 
 // === middlewares
 app.use(notFoundMiddleware);

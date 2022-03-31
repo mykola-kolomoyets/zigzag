@@ -7,6 +7,7 @@ export default {
       register: '/register',
       login: '/login',
       update: '/update',
+      email: '/email'
     },
 
     stats: {

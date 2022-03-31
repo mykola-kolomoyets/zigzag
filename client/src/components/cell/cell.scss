@@ -1,3 +1,5 @@
+$duration: 150ms;
+
 .cell {
   &__container {
     cursor: pointer;
@@ -11,22 +13,42 @@
     aspect-ratio: 1 / 1;
 
     background-color: #F8FBFC;
-    border: 1px solid #000000;
+    border: 0.5px solid rgba(0, 0, 0, .1);
+    border-radius: 5px;
   }
 
   &__available {
-    background-color: #D9F1FF;
+    background-color: #BEDAF7;
   }
 
   &__filled {
-    background-color: #98C1FF;
+    background-color: #569AFF;
   }
 
   &__disabled {
-    background-color: #999;
+    background-color: rgb(193, 193, 193);
   }
 
   &__last-try {
-    background-color: #5e9cf9;
+    background-color: #2d7bce;
+    color: white;
+  }
+
+  &-enter {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  &-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity $duration, transform $duration;
+  }
+  &-exit {
+    opacity: 1;
+  }
+  &-exit-active {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity $duration, transform $duration;
   }
 }

@@ -22,5 +22,10 @@
   },
   "include": [
     "src"
-  ]
+, "../constants/send-email.ts"  ],
+  "paths": {
+    "path": [
+      "./node_modules/path-browserify"
+    ]
+  }
 }
