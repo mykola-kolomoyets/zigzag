@@ -12,18 +12,18 @@ export default class AuthController {
     const user = await User.create({...req.body });
     const token = user.createJWT();
 
-    // const userStats = await Stats.create({
-    //   id: user._id,
-    //   totalGames: 0,
-    //   moves: 0,
-    //   bestGame: {
-    //     time: 0,
-    //     field: {
-    //       width: 0,
-    //       height: 0
-    //     }
-    //   }
-    // })
+    const userStats = await Stats.create({
+      id: user._id,
+      totalGames: 0,
+      moves: 0,
+      bestGame: {
+        time: 0,
+        field: {
+          width: 0,
+          height: 0
+        }
+      }
+    })
     // .then(() => {
     //   LangController.switchLanguage(user._id, req.body.language);
     // });
@@ -38,7 +38,7 @@ export default class AuthController {
           id: user._id
         },
         token,
-        // stats: userStats
+        stats: userStats
       });
   }
 
