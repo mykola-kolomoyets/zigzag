@@ -1,7 +1,7 @@
 import React, { VFC } from 'react';
+import { CSSTransition } from 'react-transition-group';
 
-import Transition from 'react-transition-group/Transition';
-import { CSSTransition, SwitchTransition } from 'react-transition-group';
+import Confetti from "react-confetti";
 
 import SummaryContext, { initialSummaryState } from '../../store/context/summary';
 
@@ -34,6 +34,15 @@ const Summary: VFC = () => {
         <div className="summary">
           <div className="summary__overlay"></div>
             <div className="summary__content">
+              {isSuccess && (
+                <Confetti
+                  recycle
+                  gravity={0.2}
+                  run={true}
+                  numberOfPieces={400}
+                  colors={['#FFF000', '#0000FF']}
+                />
+              )}
               <div className="summary__status">
                 <img src={isSuccess ? SuccessIcon : FailIcon} alt="status" />
               </div>
