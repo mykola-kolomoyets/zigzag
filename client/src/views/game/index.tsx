@@ -208,7 +208,7 @@ const Game: FC<GameProps> = ({ onFinish }) => {
   return (
     <section>
       <div className='game__cancel-move'>
-        <Button onClick={cancelMove} disabled={!isCancelAvailable}>
+        <Button view='secondary' fullWidth onClick={cancelMove} disabled={!isCancelAvailable}>
           {t('game.cancelMove')}
         </Button>
       </div>

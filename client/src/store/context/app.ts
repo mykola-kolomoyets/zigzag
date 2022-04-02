@@ -1,4 +1,4 @@
-import { AlertType, AppStore, Difficulty } from "../../utils";
+import { AlertType, AppStore, Difficulty, Locales } from "../../utils";
 import Context from "./context";
 
 export const initialAppState: AppStore = {
@@ -13,7 +13,8 @@ export const initialAppState: AppStore = {
     name: '',
     email: ''
   },
-  token: ''
+  token: '',
+  language: Locales.en
 };
 
 const AppContext = new Context(initialAppState);

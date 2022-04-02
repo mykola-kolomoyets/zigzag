@@ -13,6 +13,8 @@ import Logo from '../../components/logo';
 import './login.scss';
 import SummaryContext from '../../store/context/summary';
 import { useTranslation } from 'react-i18next';
+import { Locales } from '../../utils';
+import LanguageSwitcher from '../../components/lang-switcher';
 
 const Login: VFC = () => {
   const [login, setLogin] = useState('');
@@ -21,7 +23,7 @@ const Login: VFC = () => {
   const [loginError, setLoginError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  const { data: { isLoading }, setData: setAppData } = AppContext.useContext();
+  const { data: { isLoading, language }, setData: setAppData } = AppContext.useContext();
   const { setData: setSummaryData } = SummaryContext.useContext();
 
   const navigate = useNavigate();
@@ -90,7 +92,10 @@ const Login: VFC = () => {
           <Link className='login__register--link' to='/register'>{t('pages.login.subtitle.link')}</Link>
         </section>
 
+
         <form onSubmit={onSubmit} className='login__form'>
+          <LanguageSwitcher />
+
           <section className='login__inputs'>
             <Input
               name='email'
@@ -109,7 +114,7 @@ const Login: VFC = () => {
           </section>
 
           <section>
-            <Button disabled={isLoading}>
+            <Button view='primary' fullWidth type='submit' disabled={isLoading}>
               {t('pages.login.inputs.submit')}
             </Button>
           </section>

@@ -8,6 +8,7 @@ export type BaseUser = {
 
 export type RegisterUser = BaseUser & {
   name: string;
+  language?: string
 }
 
 export type RegisterUserResponse = {

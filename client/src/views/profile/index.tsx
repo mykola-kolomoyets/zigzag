@@ -12,6 +12,7 @@ import Navigation from "../../components/navbar";
 
 import './profile.scss';
 import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "../../components/lang-switcher";
 
 const Profile: VFC = () => {
   const { data: { user: { _id: id }, token } } = AppContext.useContext();
@@ -80,6 +81,8 @@ const Profile: VFC = () => {
             <p>{stats.bestGame.field.width} x {stats.bestGame.field.height}</p>
           </article>
         </article>
+
+        <LanguageSwitcher sendToServer/>
       </section>
     </main>
   );

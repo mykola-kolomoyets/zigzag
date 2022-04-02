@@ -46,7 +46,7 @@ const Summary: VFC = () => {
               </div>
 
               <div className="summary__footer">
-                <Button onClick={onClose}>
+                <Button view='primary' fullWidth onClick={onClose}>
                   Close
                 </Button>
               </div>

@@ -12,6 +12,7 @@ import Logo from '../../components/logo';
 
 import './register.scss';
 import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from '../../components/lang-switcher';
 
 const Register: VFC = () => {
   const [name, setName] = useState('');
@@ -22,7 +23,7 @@ const Register: VFC = () => {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  const { data: { isLoading }, setData: setAppData } = AppContext.useContext();
+  const { data: { isLoading, language }, setData: setAppData } = AppContext.useContext();
 
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -54,7 +55,8 @@ const Register: VFC = () => {
     AuthService.register({
       name: name!,
       email: email!,
-      password: password!
+      password: password!,
+      language
     })
       .then(res => {
         const { token, user } = res.data;
@@ -84,6 +86,8 @@ const Register: VFC = () => {
         </section>
 
         <form onSubmit={onSubmit} className='register__form'>
+          <LanguageSwitcher />
+
           <section className='register__inputs'>
             <Input
               name='name'
@@ -110,7 +114,7 @@ const Register: VFC = () => {
             />
           </section>
 
-          <Button disabled={isLoading}>
+          <Button view='primary' fullWidth disabled={isLoading}>
             {t('pages.register.inputs.submit')}
           </Button>
         </form>

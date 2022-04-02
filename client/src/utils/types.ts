@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 import Context from "../store/context/context";
 
-import { AlertType, Difficulty } from "./enums";
+import { AlertType, Difficulty, Locales } from "./enums";
 
 export interface IContext<T extends {}> {
   data: T;
@@ -32,6 +32,7 @@ export type AppStore = {
     email: string;
   };
   token: string;
+  language: Locales
 };
 
 

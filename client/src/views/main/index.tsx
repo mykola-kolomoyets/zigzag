@@ -54,7 +54,7 @@ const Main: VFC = () => {
   const [isFinished, setIsFinished] = useState(false);
   const [fieldSize, setFieldSize] = useState(0);
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const onDifficultyChange = (event: ChangeEvent<HTMLInputElement>) => {
     setAppData({ difficulty: event.target.value });
@@ -116,6 +116,8 @@ const Main: VFC = () => {
 
         setAppData({ user });
         setStatsData({ ...stats });
+
+        i18n.changeLanguage(user.language || 'en');
       })
       .catch((err) => {
         navigate('/login');
@@ -133,7 +135,7 @@ const Main: VFC = () => {
           <section className="main__game">
             <Timer isTicking={!isFinished} />
             <Game onFinish={onFinishGame} />
-            <Button onClick={onFinishGame}>
+            <Button view='primary' fullWidth onClick={onFinishGame}>
               {t('game.finishGame')}
             </Button>
           </section>
@@ -176,7 +178,7 @@ const Main: VFC = () => {
               />
             </section>
 
-            <Button onClick={onStartGame}>
+            <Button view='primary' fullWidth onClick={onStartGame}>
               {t('pages.main.submit')}
             </Button>
           </section>
