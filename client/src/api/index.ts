@@ -10,7 +10,7 @@ export const AuthHeader = () => ({
 });
 
 export default axios.create({
-  baseURL: `http://localhost:${process.env.PORT || 4000}/api/v1`,
+  baseURL: `https://project-zigzag.herokuapp.com/api/v1`,
   headers: {
     'Content-type': 'application/json'
   }
