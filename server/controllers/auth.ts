@@ -51,7 +51,9 @@ export default class AuthController {
       user = await User.findOne({ name: email }).select('+password');
 
       if (!user) {
-        throw new Error('User not found');
+        res
+        .json(StatusCodes.NOT_FOUND)
+        .json({ message: 'User data not found' })
       }
     }
 
@@ -65,14 +67,20 @@ export default class AuthController {
 
     user.password = undefined;
 
-    const userStats = Stats.findOne({ id: user._id });
+    const stats = await Stats.findOne({ id: user._id });
+
+    if (!stats) {
+      res
+        .json(StatusCodes.NOT_FOUND)
+        .json({ message: 'User data not found' })
+    }
 
     res
       .status(StatusCodes.OK)
       .json({
         user,
         token,
-        stats: userStats
+        stats
       });
   }
 
