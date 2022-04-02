@@ -6,7 +6,7 @@ import 'express-async-errors';
 import dotenv from 'dotenv';
 
 import Path from './constants';
-import connectDB, { connectionString } from './db/connect';
+import connectDB from './db/connect';
 
 // === routers
 import authRouter from './routes/auth';
@@ -55,7 +55,7 @@ const PORT = process.env.PORT || 4000;
 
 const start = async () => {
   try {
-    await connectDB(connectionString);
+    await connectDB(process.env.MONGO_URI!);
 
     app.listen(PORT, () => {
       console.log(`Server is listening on port ${PORT}`);
