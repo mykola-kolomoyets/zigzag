@@ -23,6 +23,7 @@ const Radio = ({
   });
 
   const radioContainerClasses = (itemValue: string) => classNames('radio__container text', {
+    // eslint-disable-next-line eqeqeq
     radio__container_active: value == itemValue,
     radio__container_disabled: inputProps?.disabled
   });
@@ -41,6 +42,7 @@ const Radio = ({
               {...inputProps}
               className="radio__input"
               type="radio"
+              // eslint-disable-next-line eqeqeq
               checked={value == itemValue}
               value={itemValue}
             />

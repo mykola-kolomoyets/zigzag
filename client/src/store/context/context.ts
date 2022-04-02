@@ -2,7 +2,6 @@ import { createContext, useContext } from "react";
 
 import { IContext, UpdateData } from "../../utils";
 
-
 class Context<T extends {}> {
   constructor(
     private _initialState: T

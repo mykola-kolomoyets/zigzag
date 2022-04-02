@@ -1,4 +1,4 @@
-import React, { Fragment, lazy, Suspense, useEffect } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 
 import {
   BrowserRouter,

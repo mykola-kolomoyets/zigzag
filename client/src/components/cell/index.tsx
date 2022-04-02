@@ -1,7 +1,5 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC } from "react";
 import classnames from 'classnames';
-import { CSSTransition, Transition } from 'react-transition-group';
-
 import GameContext from "../../store/context/game";
 
 import './cell.scss';

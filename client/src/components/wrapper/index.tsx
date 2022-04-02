@@ -1,6 +1,4 @@
-
 import { FC } from 'react';
-
 
 import AppProvider from '../../store/provider/app';
 import GameProvider from '../../store/provider/game';

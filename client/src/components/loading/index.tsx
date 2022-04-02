@@ -1,8 +1,7 @@
 import React, { FC  } from 'react'
 import AppContext from '../../store/context/app';
 
-import Transition from 'react-transition-group/Transition';
-import { CSSTransition, SwitchTransition } from 'react-transition-group';
+import { CSSTransition } from 'react-transition-group';
 
 
 import Logo from '../logo';

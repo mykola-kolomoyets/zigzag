@@ -1,5 +1,5 @@
 import i18next from 'i18next';
-import React, { useEffect, useState, FC, useCallback } from 'react'
+import React, { useEffect, FC, useCallback } from 'react'
 import { useTranslation } from 'react-i18next';
 import LangService from '../../api/services/lang';
 
@@ -43,6 +43,7 @@ const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ sendToServer, onChangeCal
           setAppData({ language: res.data.language || 'en' });
         });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])();
 
   const getLanguage = () => i18next.language || window.localStorage.i18nextLng;
@@ -52,6 +53,7 @@ const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ sendToServer, onChangeCal
     const menuItem = menuItems.find(el => el.value === lang) || menuItems[1];
 
     setAppData({ language: menuItem.value });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [language]);
 
   return (

@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { RegisterUser, UserData } from "../../types";
+import { RegisterUser } from "../../types";
 
 import api  from './../';
 

@@ -2,8 +2,6 @@ import React, { FC } from 'react'
 import { Link } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 
-import Logo from '../logo';
-
 import LogoMini from './logo-mini.svg';
 
 import './navbar.scss';

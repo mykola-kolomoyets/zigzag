@@ -1,6 +1,5 @@
-import { useCallback, useEffect, FC, useMemo, useState } from "react";
+import { useEffect, FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import AuthService from "../../api/services/auth";
 import EmailService from "../../api/services/email";
 import StatsService from "../../api/services/stats";
 import Button from "../../components/button";
@@ -19,6 +18,7 @@ import './game.scss';
 export const checkRow = (content: string, row: number, column: number, field: string[][], lastTry: Try): boolean => {
   let isAllowedToGo = true;
 
+  // eslint-disable-next-line eqeqeq
   if (lastTry.row != undefined && lastTry.column != undefined) {
     const deltaX = Math.abs(column - lastTry.column);
     const deltaY = Math.abs(row - lastTry.row);
@@ -32,7 +32,7 @@ export const checkRow = (content: string, row: number, column: number, field: st
 }
 
 const arraysEqual = (a1: number[],a2: number[]) => {
-  /* WARNING: arrays must not contain {objects} or behavior may be undefined */
+  // eslint-disable-next-line eqeqeq
   return JSON.stringify(a1) == JSON.stringify(a2);
 }
 
@@ -201,11 +201,12 @@ const Game: FC<GameProps> = ({ onFinish }) => {
         moves: 0,
       }
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     setGameData({ onCellClick });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fieldSize, disabledCells]);
 
   const rows = useMemo(() => field.map((row, index) => (
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     <Row key={`row${index}`} content={row} number={index} />)), [field, lastTryField, lastTry]);
 
   return (

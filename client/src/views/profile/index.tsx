@@ -17,11 +17,7 @@ import LanguageSwitcher from "../../components/lang-switcher";
 const Profile: VFC = () => {
   const { data: { user: { _id: id }, token } } = AppContext.useContext();
 
-  const { data, data: {
-    totalGames,
-    moves,
-    bestGame
-  }, setData: setStatsData } = StatsContext.useContext();
+  const { data, setData: setStatsData } = StatsContext.useContext();
 
   const [stats, setStats] = useState<StatsStore>(data);
 

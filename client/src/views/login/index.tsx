@@ -13,7 +13,6 @@ import Logo from '../../components/logo';
 import './login.scss';
 import SummaryContext from '../../store/context/summary';
 import { useTranslation } from 'react-i18next';
-import { Locales } from '../../utils';
 import LanguageSwitcher from '../../components/lang-switcher';
 
 const Login: VFC = () => {
@@ -23,7 +22,7 @@ const Login: VFC = () => {
   const [loginError, setLoginError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  const { data: { isLoading, language }, setData: setAppData } = AppContext.useContext();
+  const { data: { isLoading }, setData: setAppData } = AppContext.useContext();
   const { setData: setSummaryData } = SummaryContext.useContext();
 
   const navigate = useNavigate();

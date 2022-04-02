@@ -1,12 +1,12 @@
 import { ChangeEvent, useEffect, useState, VFC } from "react";
 import { useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
 
 import AuthService from "../../api/services/auth";
 
 import { Difficulty, Size } from "../../utils";
 
 import Button from "../../components/button";
-import Input from "../../components/input";
 import Navigation from "../../components/navbar";
 import Radio from "../../components/radio";
 import Timer from "../../components/timer";
@@ -18,8 +18,6 @@ import StatsContext from "../../store/context/stats";
 import Game from "../game";
 
 import './main.scss';
-import SummaryContext from "../../store/context/summary";
-import { useTranslation } from "react-i18next";
 
 const startSets: Size[] = [
   { width: 6, height: 6 },
@@ -48,7 +46,6 @@ const Main: VFC = () => {
   }, setData: setAppData } = AppContext.useContext();
   const { setData: setStatsData } = StatsContext.useContext();
   const { setData: setGameData } = GameContext.useContext();
-  const { setData: setSummaryData } = SummaryContext.useContext();
 
   const [isStarted, setIsStarted] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
