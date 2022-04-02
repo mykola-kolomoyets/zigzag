@@ -65,11 +65,14 @@ export default class AuthController {
 
     user.password = undefined;
 
+    const userStats = Stats.findOne({ id: user._id });
+
     res
       .status(StatusCodes.OK)
       .json({
         user,
-        token
+        token,
+        stats: userStats
       });
   }
 

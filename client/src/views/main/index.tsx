@@ -105,22 +105,29 @@ const Main: VFC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userId = id || localStorage.getItem('userId');
+    const userId =
+    // id
+    // ||
+    localStorage.getItem('userId');
 
-    AuthService.getUser(userId!)
-      .then(res => {
-        const { user, stats } = res.data;
+    console.log(userId);
 
-        setAppData({ user });
-        setStatsData({ ...stats });
+    // if (userId) {
+    //   AuthService.getUser(userId!)
+    //     .then(res => {
+    //       const { user, stats } = res.data;
 
-        i18n.changeLanguage(user.language || 'en');
-      })
-      .catch((err) => {
-        navigate('/login');
-      });
+          // setAppData({ user });
+          // setStatsData({ ...stats });
+
+    //       i18n.changeLanguage(user.language || 'en');
+    //     })
+    //     .catch((err) => {
+    //       navigate('/login');
+    //     });
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, token]);
+  }, []);
 
   return (
     <main className='main__container container'>

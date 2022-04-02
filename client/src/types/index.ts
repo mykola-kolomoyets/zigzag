@@ -18,7 +18,8 @@ export type RegisterUserResponse = {
 
 export type LoginUserResponse = {
   token: string;
-  user: RegisterUser
+  user: RegisterUser,
+  stats: StatsStore
 }
 
 export type UserData = {

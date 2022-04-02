@@ -14,6 +14,7 @@ import './login.scss';
 import SummaryContext from '../../store/context/summary';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../../components/lang-switcher';
+import StatsContext from '../../store/context/stats';
 
 const Login: VFC = () => {
   const [login, setLogin] = useState('');
@@ -24,6 +25,7 @@ const Login: VFC = () => {
 
   const { data: { isLoading }, setData: setAppData } = AppContext.useContext();
   const { setData: setSummaryData } = SummaryContext.useContext();
+  const { setData: setStatsData } = StatsContext.useContext();
 
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -50,9 +52,10 @@ const Login: VFC = () => {
       password: password
     })
       .then(res => {
-        const { token, user } = res.data;
+        const { token, user, stats } = res.data;
 
         setAppData({ user, token });
+          setStatsData({ ...stats });
 
         localStorage.setItem('userId', user._id!);
         localStorage.setItem('AuthToken', token);
