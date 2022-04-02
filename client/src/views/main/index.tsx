@@ -1,8 +1,6 @@
-import { ChangeEvent, useEffect, useState, VFC } from "react";
-import { useNavigate } from "react-router";
+import { ChangeEvent, useState, VFC } from "react";
 import { useTranslation } from "react-i18next";
 
-import AuthService from "../../api/services/auth";
 
 import { Difficulty, Size } from "../../utils";
 
@@ -13,7 +11,6 @@ import Timer from "../../components/timer";
 
 import AppContext from "../../store/context/app";
 import GameContext from "../../store/context/game";
-import StatsContext from "../../store/context/stats";
 
 import Game from "../game";
 
@@ -40,18 +37,16 @@ const createSetsButtons = (set: Size[]) => {
 
 const Main: VFC = () => {
   const { data: {
-    user: { _id: id, name },
-    token,
+    user: { name },
     difficulty
   }, setData: setAppData } = AppContext.useContext();
-  const { setData: setStatsData } = StatsContext.useContext();
   const { setData: setGameData } = GameContext.useContext();
 
   const [isStarted, setIsStarted] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
   const [fieldSize, setFieldSize] = useState(0);
 
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const onDifficultyChange = (event: ChangeEvent<HTMLInputElement>) => {
     setAppData({ difficulty: event.target.value });
@@ -67,18 +62,6 @@ const Main: VFC = () => {
   }
 
   const onStartGame = () => {
-
-    // if ((!width || !height) ||
-    //   (Number(width) < 4 || Number(height) < 4) ||
-    //   (Number(width) > 10 || Number(height) > 10)
-    // ) {
-    //   return setSummaryData({
-    //     isShow: true,
-    //     isSuccess: false,
-    //     title: 'Field is invalid!',
-    //     subtitle: 'Enter field width and height minimum 4 and maximum 10'
-    //   });
-    // }
 
     const createDisabledCell = (rows: number, columns: number): number[] => {
       return [
@@ -101,33 +84,6 @@ const Main: VFC = () => {
 
     setIsStarted(true);
   }
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const userId =
-    // id
-    // ||
-    localStorage.getItem('userId');
-
-    console.log(userId);
-
-    // if (userId) {
-    //   AuthService.getUser(userId!)
-    //     .then(res => {
-    //       const { user, stats } = res.data;
-
-          // setAppData({ user });
-          // setStatsData({ ...stats });
-
-    //       i18n.changeLanguage(user.language || 'en');
-    //     })
-    //     .catch((err) => {
-    //       navigate('/login');
-    //     });
-    // }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <main className='main__container container'>

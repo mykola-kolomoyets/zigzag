@@ -28,7 +28,7 @@ const Login: VFC = () => {
   const { setData: setStatsData } = StatsContext.useContext();
 
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const onLoginChange = (event: ChangeEvent<HTMLInputElement>) => {
     setLogin(event.target.value);
@@ -55,7 +55,9 @@ const Login: VFC = () => {
         const { token, user, stats } = res.data;
 
         setAppData({ user, token });
-          setStatsData({ ...stats });
+        setStatsData({ ...stats });
+
+        i18n.changeLanguage(user.language || 'en');
 
         localStorage.setItem('userId', user._id!);
         localStorage.setItem('AuthToken', token);
