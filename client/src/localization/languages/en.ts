@@ -11,6 +11,10 @@ const en = {
     }
   },
 
+  lang: {
+    title: "Choose the language"
+  },
+
   pages: {
     login: {
       title: "Hello Again!",
@@ -70,12 +74,21 @@ const en = {
         moves: "Moves",
         field: "Field"
       }
+    },
+    onboarding: {
+      title: "Rules of ЗigЗag",
+      subtitle: "Your move seems to be like a chess horse move. To win fill all the squares with numbers"
     }
+  },
+
+  button: {
+    close: "Close"
   },
 
   game: {
     cancelMove: "Cancel move",
     finishGame: "Finish game",
+    tutorial: "How to?"
   },
 
   popup: {

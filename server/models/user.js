@@ -60,12 +60,13 @@ var UserSchema = new mongoose_1.default.Schema({
             message: 'Invalid email'
         }
     },
+    language: String,
     password: {
         type: String,
         required: [true, 'required field'],
         minLength: 6,
         select: false
-    }
+    },
 });
 UserSchema.methods.createJWT = function () {
     return jsonwebtoken_1.default.sign({ userId: this._id }, '+MbQeThWmZq4t7w!z%C*F-JaNcRfUjXn', { expiresIn: '1d' });

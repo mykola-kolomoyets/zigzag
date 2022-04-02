@@ -8,6 +8,8 @@ exports.default = {
         register: '/register',
         login: '/login',
         update: '/update',
+        email: '/email',
+        lang: '/lang'
     },
     stats: {
         main: '/stats'

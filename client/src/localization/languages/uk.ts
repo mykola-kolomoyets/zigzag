@@ -11,6 +11,10 @@ const uk = {
     }
   },
 
+  lang: {
+    title: "Мова:"
+  },
+
   pages: {
     login: {
       title: "Вітаю!",
@@ -70,12 +74,20 @@ const uk = {
         moves: "Кількість ходів",
         field: "Розміри поля"
       }
+    },
+    onboarding: {
+      title: "Правила ЗigЗag",
+      subtitle: "Ходіть як кінь у шахах. Ваша ціль - заповнити всі квадратики числами."
     }
   },
 
+  button: {
+    close: "Close"
+  },
   game: {
     cancelMove: "Відмінити хід",
     finishGame: "Перервати гру",
+    tutorial: "Як грати?"
   },
 
   popup: {

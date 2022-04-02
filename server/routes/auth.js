@@ -11,4 +11,5 @@ router.route('/').get(auth_1.default.getUser);
 router.route(constants_1.default.auth.register).post(auth_1.default.register);
 router.route(constants_1.default.auth.login).post(auth_1.default.login);
 router.route(constants_1.default.auth.update).patch(auth_1.default.update);
+router.route(constants_1.default.auth.email).post(auth_1.default.notifyByEmail);
 exports.default = router;

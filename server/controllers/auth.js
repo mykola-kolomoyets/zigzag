@@ -70,34 +70,20 @@ var AuthController = /** @class */ (function () {
     var _a;
     _a = AuthController;
     AuthController.register = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-        var user, token, userStats, _b, password, userData;
+        var user, token, _b, password, userData;
         return __generator(_a, function (_c) {
             switch (_c.label) {
-                case 0: return [4 /*yield*/, user_1.default.create(req.body)];
+                case 0: return [4 /*yield*/, user_1.default.create(__assign({}, req.body))];
                 case 1:
                     user = _c.sent();
                     token = user.createJWT();
-                    return [4 /*yield*/, stats_1.default.create({
-                            id: user._id,
-                            totalGames: 0,
-                            moves: 0,
-                            bestGame: {
-                                time: 0,
-                                field: {
-                                    width: 0,
-                                    height: 0
-                                }
-                            }
-                        })];
-                case 2:
-                    userStats = _c.sent();
                     _b = req.body, password = _b.password, userData = __rest(_b, ["password"]);
                     res
                         .status(http_status_codes_1.StatusCodes.CREATED)
                         .json({
                         user: __assign(__assign({}, userData), { id: user._id }),
                         token: token,
-                        stats: userStats
+                        // stats: userStats
                     });
                     return [2 /*return*/];
             }
@@ -165,6 +151,16 @@ var AuthController = /** @class */ (function () {
                         .json({ user: user, stats: userStats });
                     return [2 /*return*/];
             }
+        });
+    }); };
+    AuthController.notifyByEmail = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(_a, function (_b) {
+            // const { text, field } = req.body;
+            // await sendMail(text, field);
+            res
+                .json(http_status_codes_1.StatusCodes.CREATED)
+                .json({ message: 'email was sent' });
+            return [2 /*return*/];
         });
     }); };
     return AuthController;

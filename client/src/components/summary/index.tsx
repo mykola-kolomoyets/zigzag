@@ -22,8 +22,6 @@ const Summary: VFC = () => {
 
   const onClose = () => setSummaryData(initialSummaryState);
 
-  // if (!isShow) return null;
-
   return (
     <CSSTransition
       in={isShow}

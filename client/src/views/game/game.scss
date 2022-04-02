@@ -1,5 +1,8 @@
 .game {
   &__cancel-move {
     margin-bottom: 32px;
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 3fr 1fr;
   }
 }

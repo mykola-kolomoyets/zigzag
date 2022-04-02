@@ -1,4 +1,3 @@
-import AuthController from 'controllers/auth';
 import { Router } from 'express';
 
 import LangController from './../controllers/lang';

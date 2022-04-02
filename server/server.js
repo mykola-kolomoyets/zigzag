@@ -72,6 +72,8 @@ var connect_1 = __importStar(require("./db/connect"));
 // === routers
 var auth_1 = __importDefault(require("./routes/auth"));
 var stats_1 = __importDefault(require("./routes/stats"));
+var email_1 = __importDefault(require("./routes/email"));
+var lang_1 = __importDefault(require("./routes/lang"));
 // === middlewares
 var not_found_1 = __importDefault(require("./middleware/not-found"));
 var error_handler_1 = __importDefault(require("./middleware/error-handler"));
@@ -86,7 +88,9 @@ app.get('/', function (req, res) {
     res.send('Welcome!');
 });
 // === routers
+app.use("".concat(constants_1.default.main).concat(constants_1.default.auth.lang), lang_1.default);
 app.use("".concat(constants_1.default.main).concat(constants_1.default.auth.main), auth_1.default);
+app.use("".concat(constants_1.default.main).concat(constants_1.default.auth.email), email_1.default);
 app.use("".concat(constants_1.default.main).concat(constants_1.default.stats.main), stats_1.default);
 // === middlewares
 app.use(not_found_1.default);

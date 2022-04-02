@@ -1,9 +1,10 @@
-import { useCallback, useEffect, FC, useMemo } from "react";
+import { useCallback, useEffect, FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import AuthService from "../../api/services/auth";
 import EmailService from "../../api/services/email";
 import StatsService from "../../api/services/stats";
 import Button from "../../components/button";
+import Onboarding from "../../components/onboarding";
 
 import Row from "../../components/row";
 import AppContext from "../../store/context/app";
@@ -89,6 +90,8 @@ const Game: FC<GameProps> = ({ onFinish }) => {
   const { data: { user: { _id: id } }, setData: setAppData } = AppContext.useContext();
   const { setData: setStatsData } = StatsContext.useContext();
   const { setData: setSummaryData } = SummaryContext.useContext();
+
+  const [isTutorialShow, setIsTutrialShow] = useState(false);
 
   const { t } = useTranslation();
 
@@ -211,8 +214,12 @@ const Game: FC<GameProps> = ({ onFinish }) => {
         <Button view='secondary' fullWidth onClick={cancelMove} disabled={!isCancelAvailable}>
           {t('game.cancelMove')}
         </Button>
+        <Button view='secondary' fullWidth onClick={() => setIsTutrialShow(true)}>
+          {t('game.tutorial')}
+        </Button>
       </div>
       {rows}
+        <Onboarding isShow={isTutorialShow} onClose={() => setIsTutrialShow(false)} />
     </section>
   )
 };

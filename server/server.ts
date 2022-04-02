@@ -35,8 +35,8 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 // === routers
-app.use(`${Path.main}${Path.auth.main}`, authRouter);
 app.use(`${Path.main}${Path.auth.lang}`, langRouter);
+app.use(`${Path.main}${Path.auth.main}`, authRouter);
 app.use(`${Path.main}${Path.auth.email}`, emailRouter);
 app.use(`${Path.main}${Path.stats.main}`, statsRouter);
 
@@ -62,7 +62,6 @@ const start = async () => {
     });
   } catch(error) {
     console.log(error);
-
   }
 };
 

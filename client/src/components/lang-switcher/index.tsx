@@ -1,5 +1,5 @@
 import i18next from 'i18next';
-import React, { useEffect, useState, FC } from 'react'
+import React, { useEffect, useState, FC, useCallback } from 'react'
 import { useTranslation } from 'react-i18next';
 import LangService from '../../api/services/lang';
 
@@ -30,7 +30,7 @@ const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ sendToServer, onChangeCal
 
   const { t, i18n } = useTranslation();
 
-  const onLanguageChange = (lang: string) => {
+  const onLanguageChange = useCallback(() => (lang: string) => {
     if (onChangeCallback) onChangeCallback(lang);
 
     i18n.changeLanguage(lang);
@@ -38,12 +38,12 @@ const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ sendToServer, onChangeCal
     setAppData({ language: lang });
 
     if (sendToServer) {
-      LangService.updateLang(id!, lang)
+      LangService.updateLang(id! || localStorage.getItem('userId')!, lang)
         .then(res => {
           setAppData({ language: res.data.language || 'en' });
         });
     }
-  }
+  }, [id])();
 
   const getLanguage = () => i18next.language || window.localStorage.i18nextLng;
 
@@ -56,7 +56,7 @@ const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ sendToServer, onChangeCal
 
   return (
     <section className='lang'>
-      <h5 className='lang__title'>Choose language</h5>
+      <h5 className='lang__title'>{t('lang.title')}</h5>
       { menuItems.map(item => (
         <Button key={item.value} isActive={item.value === language} view='ghost' type='button' onClick={() => onLanguageChange(item.value)}>
           {item.label}
