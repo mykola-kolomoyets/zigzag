@@ -7,14 +7,14 @@ import SummaryProvider from '../../store/provider/summary';
 
 const Wrapper: FC = ({ children }) => (
   <AppProvider>
-      <StatsProvider>
-        <GameProvider>
-          <SummaryProvider>
-              {children}
-          </SummaryProvider>
-        </GameProvider>
-      </StatsProvider>
-    </AppProvider>
+    <StatsProvider>
+      <GameProvider>
+        <SummaryProvider>
+          {children}
+        </SummaryProvider>
+      </GameProvider>
+    </StatsProvider>
+  </AppProvider>
 );
 
 export default Wrapper;
